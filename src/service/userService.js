@@ -9,16 +9,16 @@ module.exports = userService = {
     const user = await db("user").where("id", id);
     return user;
   },
-  create: async (user) => {
-    const user = await db("user").insert(user);
+  create: async (createUser) => {
+    const user = await db("user").insert(createUser);
     return user;
   },
-  update: async (id, user) => {
+  update: async (id, updateUser) => {
     const user = await db("user").where("id", id).update({
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      password: user.password,
+      email: updateUser.email,
+      first_name: updateUser.first_name,
+      last_name: updateUser.last_name,
+      password: updateUser.password,
     });
     return user;
   },

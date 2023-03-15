@@ -9,8 +9,8 @@ module.exports = blogService = {
     const pokemon = await db("pokemon").where({ id });
     return pokemon;
   },
-  create: async (pokemon) => {
-    const pokemon = await db("pokemon").insert(pokemon);
+  create: async (newPokemon) => {
+    const pokemon = await db("pokemon").insert(newPokemon);
     return pokemon;
   },
   // delete: async (id) => {

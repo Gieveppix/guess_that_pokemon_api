@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.integer("pokemon_id").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
+
     table.foreign("user_id").references("id").inTable("user");
     table.foreign("pokemon_id").references("id").inTable("pokemon");
   });
@@ -21,9 +22,3 @@ exports.up = function (knex) {
 exports.down = function (knex) {
   return knex.schema.dropTableIfExists("pokedex");
 };
-
-// id: varchar: uuid
-// user_id: varchar: uuid (relation to user model)
-// pokemon_id: varchar: uuid (relation to pokemon model)
-// created_at: timpestamptz
-// updated_at: timpestamptz
