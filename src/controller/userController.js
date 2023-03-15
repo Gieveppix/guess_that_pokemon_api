@@ -2,8 +2,8 @@ const userService = require("../service/userService");
 module.exports = userController = {
   getAll: async (req, res, next) => {
     try {
-      const users = await userService.getAll();
-      res.json(users);
+      const user = await userService.getAll();
+      res.json(user);
     } catch (error) {
       next(error);
     }

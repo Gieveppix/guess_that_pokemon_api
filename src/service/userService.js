@@ -2,28 +2,28 @@ const db = require("../config/db");
 
 module.exports = userService = {
   getAll: async () => {
-    const users = await db("user");
-    return users;
+    const user = await db("user");
+    return user;
   },
   getById: async (id) => {
     const user = await db("user").where("id", id);
     return user;
   },
   create: async (user) => {
-    const users = await db("user").insert(user);
-    return users;
+    const user = await db("user").insert(user);
+    return user;
   },
   update: async (id, user) => {
-    const users = await db("user").where("id", id).update({
+    const user = await db("user").where("id", id).update({
       email: user.email,
       first_name: user.first_name,
       last_name: user.last_name,
       password: user.password,
     });
-    return users;
+    return user;
   },
   delete: async (id) => {
-    const users = await db("user").where("id", id).del();
-    return users;
+    const user = await db("user").where("id", id).del();
+    return user;
   },
 };
