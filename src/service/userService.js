@@ -3,13 +3,11 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 
 module.exports = userService = {
-  getAll: async () => {
-    const user = await db("user");
-    return user;
+  getAllUsers: async () => {
+    return await db("user").orderBy("id");
   },
-  getById: async (id) => {
-    const user = await db("user").where("id", id);
-    return user;
+  getUserById: async (id) => {
+    return await db("user").where("id", id);
   },
   register: async (req, res) => {
     const saltRounds = 10;
@@ -19,7 +17,6 @@ module.exports = userService = {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log("422");
       return res.status(422).jsonp(errors.array());
     } else {
       const hash = await bcrypt.hash(password, saltRounds);
@@ -61,7 +58,7 @@ module.exports = userService = {
             .select("email", "first_name", "last_name")
             .where("email", "=", req.body.email)
             .then((user) => {
-              res.status(200).json("Login ok");
+              res.status(200).json(user[0]);
             })
             .catch((error) => {
               res.status(400).json("Unable to login");
@@ -75,14 +72,25 @@ module.exports = userService = {
         res.status(500).json("Server error");
       });
   },
-  update: async (id, updateUser) => {
-    const user = await db("user").where("id", id).update({
-      email: updateUser.email,
-      first_name: updateUser.first_name,
-      last_name: updateUser.last_name,
-      password: updateUser.password,
-    });
-    return user;
+  update: async (req, res) => {
+    await db("user")
+      .where("id", req.params.id)
+      .update({
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        password: req.body.password,
+      })
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((error) => {
+        if (error.constraint == "user_email_unique") {
+          res.status(209).json("Email already exists");
+        } else {
+          res.status(400).json("Failed to update user");
+        }
+      });
   },
   delete: async (id) => {
     const user = await db("user").where("id", id).del();
