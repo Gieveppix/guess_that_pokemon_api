@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const pokemonController = require("../controller/pokemonController");
 
-router.route("/").get(pokemonController.getAll).post(pokemonController.create);
+router
+  .route("/getAll")
+  .get(pokemonController.getAll)
 router.route("/:id").get(pokemonController.getById);
-// .delete(pokemonController.delete);
+router.route("/fill").post(pokemonController.fill);
 
 module.exports = router;

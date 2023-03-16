@@ -18,18 +18,17 @@ module.exports = pokedexController = {
   },
   create: async (req, res, next) => {
     try {
-      const pokedex = await pokedexService.create(req.body);
-      res.json(pokedex);
+      await pokedexService.create(req, res);
     } catch (error) {
       next(error);
     }
   },
-  delete: async (req, res, next) => {
-    try {
-      const pokedex = await pokedexService.delete(req.params.id);
-      res.json(pokedex);
-    } catch (error) {
-      next(error);
-    }
-  },
+  // delete: async (req, res, next) => {
+  //   try {
+  //     const pokedex = await pokedexService.delete(req.params.id);
+  //     res.json(pokedex);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // },
 };

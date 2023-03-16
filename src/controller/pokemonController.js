@@ -24,12 +24,11 @@ module.exports = userController = {
       next(error);
     }
   },
-  // delete: async (req, res, next) => {
-  //   try {
-  //     const pokemon = await pokemonService.delete(req.params.id);
-  //     res.json(pokemon);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // },
+  fill: async (req, res, next) => {
+    try {
+      await pokemonService.fill(req, res);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
