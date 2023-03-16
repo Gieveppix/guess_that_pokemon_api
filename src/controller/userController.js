@@ -25,8 +25,7 @@ module.exports = userController = {
   },
   login: async (req, res, next) => {
     try {
-      const user = await userService.login(req);
-      res.json(user);
+      await userService.login(req, res);
     } catch (error) {
       next(error);
     }

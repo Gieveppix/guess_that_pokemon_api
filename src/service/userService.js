@@ -30,8 +30,8 @@ module.exports = userService = {
           last_name,
           password: hash,
         })
-        .then((result) => {
-          if (result.severity == "ERROR") {
+        .then((data) => {
+          if (data.severity == "ERROR") {
             return;
           } else {
             res.status(200).json("Register ok");
@@ -45,6 +45,35 @@ module.exports = userService = {
           res.status(400).json("Unable to register");
         });
     }
+  },
+  login: async (req, res) => {
+    await db("user")
+      .select("email", "password")
+      .where("email", "=", req.body.email)
+      .then(async (data) => {
+        const isValid = await bcrypt.compare(
+          req.body.password,
+          data[0].password
+        );
+
+        if (isValid) {
+          return db("user")
+            .select("email", "first_name", "last_name")
+            .where("email", "=", req.body.email)
+            .then((user) => {
+              res.status(200).json("Login ok");
+            })
+            .catch((error) => {
+              res.status(400).json("Unable to login");
+            });
+        } else {
+          console.log("2");
+          res.status(400).json("Wrong email or password");
+        }
+      })
+      .catch((error) => {
+        res.status(500).json("Server error");
+      });
   },
   update: async (id, updateUser) => {
     const user = await db("user").where("id", id).update({

@@ -18,6 +18,7 @@ router
       .isLength({ min: 4 }),
   ])
   .post(userController.register);
+router.route("/login").post(userController.login);
 router.route("/getUser:id").get(userController.getById);
 router.route("/updateUser:id").put(userController.update);
 router.route("deleteUser").delete(userController.delete);
