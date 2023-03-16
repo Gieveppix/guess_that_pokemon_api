@@ -3,10 +3,10 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 
 module.exports = userService = {
-  getAllUsers: async () => {
+  getAll: async () => {
     return await db("user").orderBy("id");
   },
-  getUserById: async (id) => {
+  getById: async (id) => {
     return await db("user").where("id", id);
   },
   register: async (req, res) => {

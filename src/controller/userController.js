@@ -1,16 +1,16 @@
 const userService = require("../service/userService");
 module.exports = userController = {
-  getAllUsers: async (req, res, next) => {
+  getAll: async (req, res, next) => {
     try {
-      const user = await userService.getAllUsers();
+      const user = await userService.getAll();
       res.json(user);
     } catch (error) {
       next(error);
     }
   },
-  getUserById: async (req, res, next) => {
+  getById: async (req, res, next) => {
     try {
-      const user = await userService.getUserById(req.params.id);
+      const user = await userService.getById(req.params.id);
       res.json(user);
     } catch (error) {
       next(error);

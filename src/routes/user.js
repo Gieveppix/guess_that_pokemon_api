@@ -4,7 +4,7 @@ const { check } = require("express-validator");
 const userController = require("../controller/userController");
 
 /* GET users listing. */
-router.route("/getAllUsers").get(userController.getAllUsers);
+router.route("/").get(userController.getAll);
 router
   .route("/register", [
     check("email", "Your email is not valid")
@@ -19,7 +19,7 @@ router
   ])
   .post(userController.register);
 router.route("/login").post(userController.login);
-router.route("/:id").get(userController.getUserById);
+router.route("/:id").get(userController.getById);
 router.route("/update/:id").put(userController.update);
 router.route("delete").delete(userController.delete);
 
