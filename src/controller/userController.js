@@ -16,9 +16,16 @@ module.exports = userController = {
       next(error);
     }
   },
-  create: async (req, res, next) => {
+  register: async (req, res, next) => {
     try {
-      const user = await userService.create(req.body);
+      await userService.register(req, res);
+    } catch (error) {
+      next(error);
+    }
+  },
+  login: async (req, res, next) => {
+    try {
+      const user = await userService.login(req);
       res.json(user);
     } catch (error) {
       next(error);
