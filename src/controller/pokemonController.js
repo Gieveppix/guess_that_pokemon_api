@@ -16,6 +16,14 @@ module.exports = userController = {
       next(error);
     }
   },
+  getRandom: async (req, res, next) => {
+    try {
+      const pokemon = await pokemonService.getRandom(req.params.id);
+      res.json(pokemon);
+    } catch (error) {
+      next(error);
+    }
+  },
   create: async (req, res, next) => {
     try {
       const pokemon = await pokemonService.create(req.body);

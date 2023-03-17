@@ -9,6 +9,30 @@ module.exports = blogService = {
     const pokemon = await db("pokemon").where({ id });
     return pokemon;
   },
+  getRandom: async (id) => {
+    const uncaughtPokemon = async (id, count) => {
+      let pokemon_id = null;
+      let alreadyCaught = true;
+      while (alreadyCaught) {
+        let temp_pokemon_id = Math.floor(Math.random() * count[0].count + 1);
+        await db("pokedex")
+          .select("user_id", "pokemon_id")
+          .where("user_id", "=", id)
+          .andWhere("pokemon_id", "=", temp_pokemon_id)
+          .then((data) => {
+            if (data.length == 0) {
+              alreadyCaught = false;
+              pokemon_id = temp_pokemon_id;
+            }
+          });
+      }
+      return pokemon_id;
+    };
+    let count = await db("pokemon").count("id");
+    let pokemon_id = uncaughtPokemon(id, count);
+
+    return pokemon_id;
+  },
   create: async (newPokemon) => {
     const pokemon = await db("pokemon").insert(newPokemon);
     return pokemon;
@@ -45,6 +69,7 @@ module.exports = blogService = {
       res.status(400).json("");
     }
   },
+
   // delete: async (id) => {
   //   const pokemon = await db("pokemon").where("id", id).del();
   //   return pokemon;
