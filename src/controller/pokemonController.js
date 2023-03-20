@@ -1,4 +1,4 @@
-const pokemonService = require("../service/pokemonService");
+const pokemonService = require("$/src/service/pokemonService");
 module.exports = userController = {
   getAll: async (req, res, next) => {
     try {

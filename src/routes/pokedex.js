@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const pokedexController = require("../controller/pokedexController");
+const pokedexController = require("$/src/controller/pokedexController");
 
 router.route("/getAll").get(pokedexController.getAll);
 router.route("/create").post(pokedexController.create);

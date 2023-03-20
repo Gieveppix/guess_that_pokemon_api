@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const db = require("$/src/config/db");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 

@@ -1,4 +1,4 @@
-const userService = require("../service/userService");
+const userService = require("$/src/service/userService");
 module.exports = userController = {
   getAll: async (req, res, next) => {
     try {

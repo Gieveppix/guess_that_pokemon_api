@@ -1,4 +1,4 @@
-const pokedexService = require("../service/pokedexService");
+const pokedexService = require("$/src/service/pokedexService");
 module.exports = pokedexController = {
   getAll: async (req, res, next) => {
     try {
