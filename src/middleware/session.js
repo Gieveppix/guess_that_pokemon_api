@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require("uuid");
 
 const knexStore = new KnexSessionStore({
   knex: db,
-  tablename: "session",
+  tablename: "user_session",
   // clearInterval -> defaults to 60 * 1000
   disableDbCleanup: true,
 });
@@ -35,7 +35,7 @@ const sessionRedis = session({
   genid: function (req) {
     return uuidv4(); // use UUIDs for session IDs
   },
-  secret: "pass",
+  secret: process.env.REDIS_PASSWORD,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false, maxAge: 120 * 1000 },
@@ -46,7 +46,7 @@ const sessionKnex = session({
   genid: function (req) {
     return uuidv4(); // use UUIDs for session IDs
   },
-  secret: "pass",
+  secret: process.env.DEV_DB_PASSWORD,
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false, maxAge: 120 * 1000 },
