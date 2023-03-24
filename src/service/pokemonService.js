@@ -7,7 +7,7 @@ module.exports = blogService = {
   },
   getById: async (id) => {
     const pokemon = await db("pokemon").where({ id });
-    return pokemon;
+    return pokemon[0];
   },
   getRandom: async (id) => {
     const uncaughtPokemon = async (id, count) => {

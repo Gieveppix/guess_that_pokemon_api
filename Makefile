@@ -1,3 +1,6 @@
+redis:
+	docker run --name pokemon-redis -d -p 6379:6379 redis redis-server --requirepass pass --maxmemory 512mb
+
 postgres:
 	docker run --name pokemon_api -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=pass -d postgres:15-alpine
 
@@ -20,6 +23,6 @@ migratelatest:
 	npx knex migrate:latest
 
 server:
-	npx nodemon
+	npm run server
 
-.PHONY: postgres createdb dropdb migrate migrateup migratedown migratelatest server
+.PHONY: redis postgres createdb dropdb migrate migrateup migratedown migratelatest server
